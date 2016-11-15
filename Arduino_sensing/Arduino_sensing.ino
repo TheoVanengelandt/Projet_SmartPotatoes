@@ -31,8 +31,8 @@
 float results[N];            //-Filtered result buffer
 float freq[N];            //-Filtered result buffer
 int sizeOfArray = N;
-
- 
+int numeroPin; // variable pour le pin utilisé
+int switchState = 0 ;
    
    
 
@@ -47,6 +47,8 @@ void setup()
 
   pinMode(9,OUTPUT);        //-Signal generator pin
   pinMode(8,OUTPUT);        //-Sync (test) pin
+  pinMode(7,OUTPUT);
+  pinMode(6,OUTPUT);
 
   Serial.begin(115200);
 
@@ -62,6 +64,36 @@ void loop()
   for(unsigned int d=0;d<N;d++)
   {
     int v=analogRead(0);    //-Read response signal
+
+    if(v>545)
+    {
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(6,HIGH);
+    }
+    if(3605>v>=350)
+    {
+    digitalWrite(9, HIGH);
+    digitalWrite(8, LOW);
+    digitalWrite(7, LOW);
+    digitalWrite(6,LOW);
+    }
+    if(375>v>=370)
+    {
+    digitalWrite(9, LOW);
+    digitalWrite(8, HIGH);
+    digitalWrite(7, LOW);
+    digitalWrite(6,LOW);
+    }
+    if(370>v)
+    {
+    digitalWrite(9, LOW);
+    digitalWrite(8, LOW);
+    digitalWrite(7, HIGH);
+    digitalWrite(6,LOW);
+    }
+    
     CLR(TCCR1B,0);          //-Stop generator
     TCNT1=0;                //-Reload new frequency
     ICR1=d;                 // |
