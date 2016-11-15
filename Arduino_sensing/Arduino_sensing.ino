@@ -49,6 +49,8 @@ void setup()
   pinMode(8,OUTPUT);        //-Sync (test) pin
   pinMode(7,OUTPUT);
   pinMode(6,OUTPUT);
+  pinMode(5,OUTPUT);
+  
 
   Serial.begin(115200);
 
@@ -67,28 +69,28 @@ void loop()
 
     if(v>545)
     {
-    digitalWrite(9, LOW);
+    digitalWrite(5, LOW);
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
     digitalWrite(6,HIGH);
     }
     if(3605>v>=350)
     {
-    digitalWrite(9, HIGH);
+    digitalWrite(5, HIGH);
     digitalWrite(8, LOW);
     digitalWrite(7, LOW);
     digitalWrite(6,LOW);
     }
     if(375>v>=370)
     {
-    digitalWrite(9, LOW);
+    digitalWrite(5, LOW);
     digitalWrite(8, HIGH);
     digitalWrite(7, LOW);
     digitalWrite(6,LOW);
     }
     if(370>v)
     {
-    digitalWrite(9, LOW);
+    digitalWrite(5, LOW);
     digitalWrite(8, LOW);
     digitalWrite(7, HIGH);
     digitalWrite(6,LOW);
