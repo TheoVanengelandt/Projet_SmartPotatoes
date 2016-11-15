@@ -31,10 +31,8 @@
 float results[N];            //-Filtered result buffer
 float freq[N];            //-Filtered result buffer
 int sizeOfArray = N;
-int numeroPin; // variable pour le pin utilisé
-int switchState = 0 ;
-   
-   
+
+/*_______________________________________________________*/  
 
 void setup()
 {
@@ -47,15 +45,14 @@ void setup()
 
   pinMode(9,OUTPUT);        //-Signal generator pin
   pinMode(8,OUTPUT);        //-Sync (test) pin
-  pinMode(7,OUTPUT);
-  pinMode(6,OUTPUT);
+  pinMode(3,OUTPUT);
   pinMode(5,OUTPUT);
-  
+  pinMode(6,OUTPUT);  
 
   Serial.begin(115200);
 
   for(int i=0;i<N;i++)      //-Preset results
-    results[i]=0;         //-+
+    results[i]=0;           //-+
 }
 
 void loop()
@@ -66,36 +63,6 @@ void loop()
   for(unsigned int d=0;d<N;d++)
   {
     int v=analogRead(0);    //-Read response signal
-
-    if(v>545)
-    {
-    digitalWrite(5, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(6,HIGH);
-    }
-    if(3605>v>=350)
-    {
-    digitalWrite(5, HIGH);
-    digitalWrite(8, LOW);
-    digitalWrite(7, LOW);
-    digitalWrite(6,LOW);
-    }
-    if(375>v>=370)
-    {
-    digitalWrite(5, LOW);
-    digitalWrite(8, HIGH);
-    digitalWrite(7, LOW);
-    digitalWrite(6,LOW);
-    }
-    if(370>v)
-    {
-    digitalWrite(5, LOW);
-    digitalWrite(8, LOW);
-    digitalWrite(7, HIGH);
-    digitalWrite(6,LOW);
-    }
-    
     CLR(TCCR1B,0);          //-Stop generator
     TCNT1=0;                //-Reload new frequency
     ICR1=d;                 // |
@@ -104,9 +71,31 @@ void loop()
 
     results[d]=results[d]*0.5+(float)(v)*0.5; //Filter results
     
- //   plot(v,0);              //-Display
- //   plot(results[d],1);
-  // delayMicroseconds(1);
+    //   plot(v,0);              //-Display
+    //   plot(results[d],1);
+    // delayMicroseconds(1);
+
+    if (v>=460 && v<=500){
+      digitalWrite(3,HIGH);
+      digitalWrite(5,LOW);
+      digitalWrite(6,LOW);
+    }
+    else if (v>=505 && v<=545){
+      digitalWrite(3,LOW);
+      digitalWrite(5,HIGH);
+      digitalWrite(6,LOW);
+    }
+    else if (v>=550 && v<=600){
+      digitalWrite(3,LOW);
+      digitalWrite(5,LOW);
+      digitalWrite(6,HIGH);
+    }
+    else{
+      digitalWrite(3,LOW);
+      digitalWrite(5,LOW);
+      digitalWrite(6,LOW);
+    }
+ 
   }
 
 
