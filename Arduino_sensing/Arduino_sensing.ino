@@ -32,7 +32,9 @@ float results[N];            //-Filtered result buffer
 float freq[N];            //-Filtered result buffer
 int sizeOfArray = N;
 
-/*_______________________________________________________*/  
+ 
+   
+   
 
 void setup()
 {
@@ -45,14 +47,13 @@ void setup()
 
   pinMode(9,OUTPUT);        //-Signal generator pin
   pinMode(8,OUTPUT);        //-Sync (test) pin
-  pinMode(3,OUTPUT);
-  pinMode(5,OUTPUT);
-  pinMode(6,OUTPUT);  
+  pinMode(7,OUTPUT);
+  pinMode(6,OUTPUT);
 
   Serial.begin(115200);
 
   for(int i=0;i<N;i++)      //-Preset results
-    results[i]=0;           //-+
+    results[i]=0;         //-+
 }
 
 void loop()
@@ -70,32 +71,38 @@ void loop()
     SET(TCCR1B,0);          //-Restart generator
 
     results[d]=results[d]*0.5+(float)(v)*0.5; //Filter results
-    
-    //   plot(v,0);              //-Display
-    //   plot(results[d],1);
-    // delayMicroseconds(1);
 
-    if (v<=500){
-      digitalWrite(3,HIGH);
-      digitalWrite(5,LOW);
-      digitalWrite(6,LOW);
-    }
-    else if ((v>500) && (v<=545)){
-      digitalWrite(3,LOW);
-      digitalWrite(5,HIGH);
-      digitalWrite(6,LOW);
-    }
-    else if ((v>=550) && (v<=600)){
-      digitalWrite(3,LOW);
-      digitalWrite(5,LOW);
+    if((v>320) && (v<345))
+    {
       digitalWrite(6,HIGH);
+      digitalWrite(7,LOW);
+      digitalWrite(8,LOW);
+      delay(1000);
     }
-    else{
-      digitalWrite(3,LOW);
-      digitalWrite(5,LOW);
+    /*else if((v>600) && (v<700))
+    {
       digitalWrite(6,LOW);
+      digitalWrite(7,HIGH);
+      digitalWrite(8,LOW);
+      delay(1000);
+    }*/
+    else if((v>350) && (v<380))
+    {
+      digitalWrite(6,LOW);
+      digitalWrite(7,LOW);
+      digitalWrite(8,HIGH);
+      delay(1000);
     }
- 
+    else if((v>490) && (v<640))
+    {
+      digitalWrite(6,LOW);
+      digitalWrite(7,LOW);
+      digitalWrite(8,LOW);
+    }
+    
+    //plot(v,0);              //-Display
+    //plot(results[d],1);
+    //delayMicroseconds(1);
   }
 
 
