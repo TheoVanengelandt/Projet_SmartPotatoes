@@ -75,17 +75,17 @@ void loop()
     //   plot(results[d],1);
     // delayMicroseconds(1);
 
-    if (v>=460 && v<=500){
+    if ((v>=460) && (v<=500)){
       digitalWrite(3,HIGH);
       digitalWrite(5,LOW);
       digitalWrite(6,LOW);
     }
-    else if (v>=505 && v<=545){
+    else if ((v>=505) && (v<=545)){
       digitalWrite(3,LOW);
       digitalWrite(5,HIGH);
       digitalWrite(6,LOW);
     }
-    else if (v>=550 && v<=600){
+    else if ((v>=550) && (v<=600)){
       digitalWrite(3,LOW);
       digitalWrite(5,LOW);
       digitalWrite(6,HIGH);
